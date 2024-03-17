@@ -5,23 +5,28 @@
 import React, { useState } from "react";
 import axios from "axios";
 import TodoForm from "./TodoForm";
+import { useNavigate } from "react-router-dom";
 
 // CreateTodo Component
 const CreateTodo = () => {
+  // Obtém o objeto de histórico
+  const navigate = useNavigate();
+
   const [formValues] = useState({
     title: "",
     description: "",
   });
 
   // onSubmit handler
-  const onSubmit = (todoObject) => {
-    axios
-      .post("http://localhost:4000/todos/create-todo", todoObject)
-      .then((res) => {
-        if (res.status === 200) alert("todo successfully created");
-        else Promise.reject();
-      })
-      .catch((err) => alert("Something went wrong"));
+  const onSubmit = async (todoObject) => {
+    try {
+      await axios.post("http://localhost:4000/todos/create-todo", todoObject);
+      alert("Tarefa criada com sucesso!");
+      navigate("/todo-list");
+    } catch (error) {
+      console.error("Erro ao criar tarefa:", error);
+      alert("Erro ao criar tarefa. Verifique o console para mais detalhes.");
+    }
   };
 
   // Return Todo form

@@ -5,7 +5,7 @@ import { Formik, Form, Field, useField, ErrorMessage } from "formik";
 import { FormGroup, Button } from "react-bootstrap";
 
 const MyTextArea = ({label, ...props}) => {
-  const [field, meta] = useField(props);
+  const [field] = useField(props);
   return (
       <>
           <label htmlFor={props.id || props.name} className="fw-bold text-lg">{label}</label>

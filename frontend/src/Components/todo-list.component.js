@@ -31,6 +31,7 @@ const TodoList = () => {
           <tr>
             <th>Título</th>
             <th>Descrição</th>
+            <th>Data</th>
             <th>Acção</th>
           </tr>
         </thead>

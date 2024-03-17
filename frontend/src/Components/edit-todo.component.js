@@ -5,57 +5,50 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TodoForm from "./TodoForm";
+import { useParams, useNavigate } from "react-router-dom";
 
 // EditTodo Component
 const EditTodo = (props) => {
+  const { id } = useParams();
+  // Obtém o objeto de histórico
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
-    name: "",
-    email: "",
-    rollno: "",
+    title: "",
+    description: "",
   });
 
   //onSubmit handler
-  const onSubmit = (todoObject) => {
-    axios
-      .put(
-        "http://localhost:4000/todos/update-todo/" +
-          props.match.params.id,
+  const onSubmit = async (todoObject) => {
+    try {
+      await axios.put(
+        "http://localhost:4000/todos/update-todo/" + id,
         todoObject
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          alert("todo successfully updated");
-          props.history.push("/todo-list");
-        } else Promise.reject();
-      })
-      .catch((err) => alert("Something went wrong"));
+      );
+      alert("Todo actualizado com sucesso");
+      navigate("/todo-list");
+    } catch (erro) {
+      alert("Erro ao actualizar a tarefa: ", erro);
+    }
   };
 
   // Load data from server and reinitialize todo form
   useEffect(() => {
     axios
-      .get(
-        "http://localhost:4000/todos/update-todo/" + props.match.params.id
-      )
+      .get("http://localhost:4000/todos/todo/" + id)
       .then((res) => {
-        const { name, email, rollno } = res.data;
+        const { title, description } = res.data;
         setFormValues({
-          name,
-          email,
-          rollno,
+          title,
+          description,
         });
       })
-      .catch((err) => console.log(err));
+      .catch((erro) => console.log(erro));
   }, []);
 
   // Return todo form
   return (
-    <TodoForm
-      initialValues={formValues}
-      onSubmit={onSubmit}
-      enableReinitialize
-    >
-      Update Todo
+    <TodoForm initialValues={formValues} onSubmit={onSubmit} enableReinitialize>
+      Actualizar Tarefa
     </TodoForm>
   );
 };
