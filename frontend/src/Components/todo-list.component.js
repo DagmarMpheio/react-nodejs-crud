@@ -29,10 +29,9 @@ const TodoList = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Roll No</th>
-            <th>Action</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Acção</th>
           </tr>
         </thead>
         <tbody>{DataTable()}</tbody>

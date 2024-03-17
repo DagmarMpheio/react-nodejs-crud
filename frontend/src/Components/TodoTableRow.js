@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const TodoTableRow = (props) => {
-  const { _id, name, email, rollno } = props.obj;
+  const { _id, title, description } = props.obj;
 
   const deleteTodo = () => {
     axios
@@ -21,15 +21,14 @@ const TodoTableRow = (props) => {
 
   return (
     <tr>
-      <td>{name}</td>
-      <td>{email}</td>
-      <td>{rollno}</td>
+      <td>{title}</td>
+      <td>{description}</td>
       <td>
         <Link className="edit-link" to={"/edit-todo/" + _id}>
-          Edit
+          Editar
         </Link>
         <Button onClick={deleteTodo} size="sm" variant="danger">
-          Delete
+          Excluir
         </Button>
       </td>
     </tr>
