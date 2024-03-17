@@ -9,9 +9,8 @@ import TodoForm from "./TodoForm";
 // CreateTodo Component
 const CreateTodo = () => {
   const [formValues] = useState({
-    name: "",
-    email: "",
-    rollno: "",
+    title: "",
+    description: "",
   });
 
   // onSubmit handler
@@ -28,7 +27,7 @@ const CreateTodo = () => {
   // Return Todo form
   return (
     <TodoForm initialValues={formValues} onSubmit={onSubmit} enableReinitialize>
-      Create Todo
+      Criar Tarefa
     </TodoForm>
   );
 };

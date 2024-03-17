@@ -1,53 +1,63 @@
 //src / Components / TodoForm.js
 import React from "react";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, useField, ErrorMessage } from "formik";
 import { FormGroup, Button } from "react-bootstrap";
+
+const MyTextArea = ({label, ...props}) => {
+  const [field, meta] = useField(props);
+  return (
+      <>
+          <label htmlFor={props.id || props.name} className="fw-bold text-lg">{label}</label>
+          <textarea className="form-control" {...field} {...props} id={props.name}/>
+      </>
+  );
+};
 
 const TodoForm = (props) => {
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Required"),
-    email: Yup.string()
-      .email(`You have enter an invalid email address`)
-      .required("Required"),
-    rollno: Yup.number()
-      .positive("Invalid roll number")
-      .integer("Invalid roll number")
-      .required("Required"),
+    title: Yup.string().required("Obrigatório"),
+    description: Yup.string().required("Obrigatório"),
   });
+
   console.log(props);
+
   return (
     <div className="form-wrapper">
       <Formik {...props} validationSchema={validationSchema}>
         <Form>
-          <FormGroup>
-            <Field name="name" type="text" className="form-control" />
+          <FormGroup className="mb-3">
+            <label htmlFor="title" className="fw-bold text-lg">Título</label>
+            <Field name="title" type="text" className="form-control" id="title" placeholder="Título da tarefa"/>
             <ErrorMessage
-              name="name"
+              name="title"
               className="d-block 
 								invalid-feedback"
               component="span"
             />
           </FormGroup>
-          <FormGroup>
-            <Field name="email" type="text" className="form-control" />
+          <FormGroup className="mb-3">            
+            <MyTextArea
+            label="Descrição"
+            name="description"
+            rows="6"
+            placeholder="Descrição da tarefa a ser realizada"
+            />
             <ErrorMessage
-              name="email"
+              name="description"
               className="d-block 
 								invalid-feedback"
               component="span"
             />
           </FormGroup>
-          <FormGroup>
-            <Field name="rollno" type="number" className="form-control" />
-            <ErrorMessage
-              name="rollno"
-              className="d-block 
-								invalid-feedback"
-              component="span"
-            />
-          </FormGroup>
-          <Button variant="danger" size="lg" block="block" type="submit">
+
+          <Button
+            variant="success"
+            size="lg"
+            block="block"
+            type="submit"
+            className="mt-4"
+          >
             {props.children}
           </Button>
         </Form>

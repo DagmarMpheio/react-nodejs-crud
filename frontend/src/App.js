@@ -22,27 +22,31 @@ const App = () => {
   return (
     <Router>
       <div className="">
-        <header className="App-header">
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <a href="/create-todo" className="navbar-brand">
-              bezKoder
-            </a>
-            <div className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to={"/create-todo"} className="nav-link">
-                  Tutorials
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/todo-list"} className="nav-link">
-                  Todo List
-                </Link>
-              </li>
-            </div>
-          </nav>
-        </header>
+        <Navbar bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand>
+              <Link to={"/create-todo"} className="nav-link">
+                React CRUD App
+              </Link>
+            </Navbar.Brand>
 
-        <Container className="mt-16">
+            <Nav className="justify-content-end">
+              <Nav>
+                <Link to={"/create-todo"} className="nav-link">
+                  Criar Tarefa
+                </Link>
+              </Nav>
+
+              <Nav>
+                <Link to={"/todo-list"} className="nav-link">
+                  Lista de Tarefas
+                </Link>
+              </Nav>
+            </Nav>
+          </Container>
+        </Navbar>
+
+        <Container>
           <Row>
             <Col md={12}>
               <div className="wrapper">
